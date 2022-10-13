@@ -2,21 +2,21 @@
 <div id="hktmenu_main">
 		<div id="hkt_main_wrap">
 			<div class="hkt_menu_top">
-				<a href="">đa khoa hồng cường</a>
+				<a href="#">đa khoa hồng cường</a>
 			</div>
 			<div class="hkt_menu_list">
 				<ul>
-					<li><a href="">trang chủ</a></li>
-					<li><a href="">giới thiệu</a></li>
+					<li><a href="#">trang chủ</a></li>
+					<li><a href="#">giới thiệu</a></li>
 					<li>
-						<a href="">danh mục bệnh</a>
+						<a href="#">danh mục bệnh</a>
 						<div class="hkt_more_cat">
 							<em class="mm-counter">9</em>
 							<span>></span>
 						</div>
 					</li>
-					<li><a href="">chuyên đề</a></li>
-					<li><a href="">liên hệ</a></li>
+					<li><a href="#">chuyên đề</a></li>
+					<li><a href="#">liên hệ</a></li>
 				</ul>
 			</div>
 		</div>
@@ -25,17 +25,17 @@
 		<div id="hkt_menu_category">
 			<div class="hkt_menu_top">
 				<span id="hkt_back"><<</span>
-				<a href="">danh mục bệnh</a>
+				<a href="#">danh mục bệnh</a>
 			</div>
 			<div class="hkt_menu_list">
 				<ul>
-					<li><a href="">nam khoa</a></li>
-					<li><a href="">ngoại khoa</a></li>
-					<li><a href="">phụ khoa</a></li>
-					<li><a href="">phá thai</a></li>
-					<li><a href="">tai mũi họng</a></li>
-					<li><a href="">bệnh da liễu</a></li>
-					<li><a href="">bệnh xã hội</a></li>
+					<li><a href="#">nam khoa</a></li>
+					<li><a href="#">ngoại khoa</a></li>
+					<li><a href="#">phụ khoa</a></li>
+					<li><a href="#">phá thai</a></li>
+					<li><a href="#">tai mũi họng</a></li>
+					<li><a href="#">bệnh da liễu</a></li>
+					<li><a href="#">bệnh xã hội</a></li>
 				</ul>
 			</div>
 		</div>
@@ -173,9 +173,9 @@
 			background: #f3f3f3;
 			border-color: rgba(0,0,0,.1);
 			color: rgba(0,0,0,.7);
-			width: 80%;
+			width: 80vw;
 			min-width: 140px;
-			max-width: 440px;
+			max-width: 400px;
 			margin: 0;
 			position: fixed;
 			left: 0;
@@ -207,10 +207,19 @@
 			from {transform:translateX(-100%);}
 			to {transform:translateX(0);}
 		}
+		@keyframes mymove2 {
+			from {transform:translateX(0);}
+			to {transform:translateX(-100%);}
+		}
 
 		div#hktmenu_main.active, div#hkt_blocker_exit.active {
 			display: block;
 			animation: mymove .5s;
+		}
+
+		div#hktmenu_main.disable, div#hkt_blocker_exit.disable {
+			animation: mymove2 .5s;
+			/*display: none;*/
 		}
 
 		div#hkt_main_wrap.to_left {
@@ -228,6 +237,17 @@
 		div#hkt_menu_category.to_left{
 			display: block;
 		}
+		#website.active{
+			transition: all .4s;
+			transform: translateX(80vw);
+		}
+		html.dis{
+			overflow: hidden;
+			position: relative;
+		}
+		body.dis{
+			overflow: hidden;
+		}
 
 	</style>
 
@@ -238,19 +258,32 @@
 		var hkt_menu_category = document.getElementById("hkt_menu_category");
 		var hkt_blocker_exit = document.getElementById("hkt_blocker_exit");
 		var hkt_back = document.getElementById("hkt_back");
+		var website = document.getElementById("website");
 		var hkt_more_cat = document.querySelectorAll('.hkt_more_cat')[0];
+		var root = document.getElementsByTagName( 'html' )[0];
+		var body = document.getElementsByTagName( 'body' )[0];
 
 
 		js_btn_click_hktmenu.addEventListener('click', function(e) {
 			hktmenu_main.classList.add('active');
 			hkt_blocker_exit.classList.add('active');
+			website.classList.add('active');
+			root.classList.add('dis');
+			body.classList.add('dis');
+			hkt_blocker_exit.classList.remove('disable');
+			hktmenu_main.classList.remove('disable');
 		});
 
 		hkt_blocker_exit.addEventListener('click', function(e) {
 			this.classList.remove('active');
+			this.classList.add('disable');
 			hktmenu_main.classList.remove('active');
+			hktmenu_main.classList.add('disable');
+			website.classList.remove('active');
 			hkt_menu_category.classList.remove('to_left');
 			hkt_main_wrap.classList.remove('to_left');
+			root.classList.remove('dis');
+			body.classList.remove('dis');
 		});
 
 		hkt_more_cat.addEventListener('click', function(e) {
