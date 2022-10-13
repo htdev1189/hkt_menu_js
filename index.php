@@ -202,6 +202,9 @@
 			box-shadow: 0 0 10px rgb(0 0 0 / 30%);
 			z-index: 100;
 		}
+		#website{
+			transition: all .4s;
+		}
 
 		@keyframes mymove {
 			from {transform:translateX(-100%);}
@@ -277,8 +280,16 @@
 		hkt_blocker_exit.addEventListener('click', function(e) {
 			this.classList.remove('active');
 			this.classList.add('disable');
-			hktmenu_main.classList.remove('active');
+
+			// xu ly transititon truoc display none
 			hktmenu_main.classList.add('disable');
+			setTimeout(function(){
+				hktmenu_main.classList.remove('active')
+			},500);
+			
+			// hktmenu_main.classList.remove('active');
+
+
 			website.classList.remove('active');
 			hkt_menu_category.classList.remove('to_left');
 			hkt_main_wrap.classList.remove('to_left');
